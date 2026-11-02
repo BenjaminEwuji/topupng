@@ -35,6 +35,36 @@ const ResetPasswordPage = () => (
                     required
               />
             </div>
+            <div className="flex flex-col gap-[6px]">
+              <label
+                htmlFor="password"
+                className="text-sm font-semibold text-black"
+              >
+                Enter new Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                    className="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl px-3.5 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all placeholder:text-slate-400 font-medium"
+                    required
+              />
+            </div>
+            <div className="flex flex-col gap-[6px]">
+              <label
+                htmlFor="password"
+                className="text-sm font-semibold text-black"
+              >
+                Comfirm Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter your password again"
+                    className="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl px-3.5 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all placeholder:text-slate-400 font-medium"
+                    required
+              />
+            </div>
           </form>
         </div>
 
@@ -42,7 +72,7 @@ const ResetPasswordPage = () => (
           type="submit"
           className="w-full bg-blue-500 text-white rounded-[8px] px-[12px] py-[10px] focus:outline-none"
         >
-          Send Reset Link
+          Change Password
         </button>
         
        

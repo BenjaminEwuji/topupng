@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import Header from '../../components/common/header';
 import Navigation from '../../components/common/navigation';
 import Footer from '../../components/common/footer';
@@ -26,8 +27,13 @@ import {
 
 function AccountPage() {
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
   const [activeTab, setActiveTab] = useState('profile');
   const [selectedMobileSection, setSelectedMobileSection] = useState(null);
+
+  const displayName = user?.fullName || `${user?.firstName || ''} ${user?.lastName || ''}`.trim() || 'User Account';
+  const displayEmail = user?.email || 'user@topupng.com';
+  const initials = ((user?.firstName?.[0] || 'U') + (user?.lastName?.[0] || 'A')).toUpperCase();
 
   const menuItems = [
     { id: 'profile', label: 'Edit Profile', icon: FiUser },
@@ -52,7 +58,8 @@ function AccountPage() {
     setSelectedMobileSection(tabId);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await logout();
     navigate('/login');
   };
 
@@ -134,15 +141,15 @@ function AccountPage() {
         <div className='flex h-full w-full max-w-[320px] flex-col gap-[24px]'>
           <div className='h-full w-full bg-[white] rounded-[25px] p-[24px] border-[1px] border-[#E2E8F0] flex flex-col gap-[16px] justify-center items-center'>
             <div className='w-[80px] h-[80px] rounded-full bg-[#EFF6FF] flex items-center justify-center'>
-              <span className='text-[32px] font-bold text-[#3B82F6]'>SA</span>
+              <span className='text-[32px] font-bold text-[#3B82F6]'>{initials}</span>
             </div>
             <div className='flex w-full flex-col justify-center items-center border-b-[1px] border-[#E2E8F0] pb-[16px]'>
-              <h1 className='text-[20px] font-bold text-gray-900'>Sarah Adebayo</h1>
-              <p className='text-[14px] text-gray-500'>sarah.ade@domain.com</p>
+              <h1 className='text-[20px] font-bold text-gray-900'>{displayName}</h1>
+              <p className='text-[14px] text-gray-500'>{displayEmail}</p>
             </div>
             <div className='flex w-full gap-[8px] justify-center items-center text-[14px] text-gray-500'>
               <FiCalendar />
-              <p>Member since January 2023</p>
+              <p>Member since {user?.createdAt ? new Date(user.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : '2026'}</p>
             </div>
           </div>
 

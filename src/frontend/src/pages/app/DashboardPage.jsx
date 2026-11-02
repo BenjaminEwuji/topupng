@@ -8,9 +8,19 @@ import QuickActions from '../../components/sections/Dashboard/QuickActions.jsx';
 import RecentTransactions from '../../components/sections/Dashboard/RecentTransaction.jsx';
 import PromoCard from '../../components/sections/Dashboard/PromoCard.jsx';
 import FundWallet from './FundWallet';
+import { useAuth } from '../../context/AuthContext';
 
 
 const DashboardView = ({ onViewChange }) =>{
+  const { user } = useAuth();
+  const displayName =
+    user?.fullName ||
+    `${user?.firstName || ''} ${user?.lastName || ''}`.trim() ||
+    'User';
+  const initials =
+    `${user?.firstName?.[0] || ''}${user?.lastName?.[0] || ''}`.toUpperCase() ||
+    'U';
+
   return <div className="min-h-screen bg-gray-50">
       {/* Main Container */}
       <div className="w-full px-0 py-0 md:px-8 md:py-10 lg:px-[120px] lg:py-12">
@@ -20,7 +30,11 @@ const DashboardView = ({ onViewChange }) =>{
           <div className="md:col-span-2 flex flex-col gap-8">
             {/* Welcome & Quick Actions */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              <div className="mb-6">
+                <p className="text-gray-500 text-sm">Welcome back 👋</p>
+                <h1 className="text-2xl font-bold text-gray-900">{displayName}</h1>
+              </div>
+              <h2 className="text-xl font-bold text-gray-900 mb-4">
                 What would you like to do?
               </h2>
               <QuickActions />
@@ -28,9 +42,6 @@ const DashboardView = ({ onViewChange }) =>{
 
             {/* Recent Transactions */}
             <div>
-              <div className="flex justify-between items-center mb-6">
-                
-              </div>
               <RecentTransactions />
             </div>
           </div>
@@ -49,9 +60,9 @@ const DashboardView = ({ onViewChange }) =>{
             <div className="flex justify-between w-full">
               <div className="flex flex-col gap-[4px]">
                   <p className="text-[#93C5FD] ">Welcome back 👋</p>
-                 <h1 className="text-[20px] text-white font-bold ">Ewuji Benjamin</h1>
+                 <h1 className="text-[20px] text-white font-bold ">{displayName}</h1>
               </div>
-              <div className="w-[44px] h-[44px] bg-[#3B82F6] rounded-full text-[white] flex justify-center items-center font-bold">EB</div>
+              <div className="w-[44px] h-[44px] bg-[#3B82F6] rounded-full text-[white] flex justify-center items-center font-bold">{initials}</div>
               
             </div>
             
